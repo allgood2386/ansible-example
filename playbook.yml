@@ -1,0 +1,22 @@
+---
+  - hosts: all
+    tasks:
+
+  - name: Get software for apt repository management.
+    apt: name={{ item }} state=installed
+    with_items:
+    - python-apt
+    - python-pycurl
+
+  - name: Make sure we have upstream php.
+    apt_repository: repo='ppa:ondrej/php5'
+
+  - name: Ensure Apache/PHP/MySQL is installed.
+    apt: name={{ item }} state=latest
+    with_items:
+      - apache2
+      - php5
+      - php5-cli
+
+  - name: Ensure Apache is running.
+    service: name=apache2 state=started
