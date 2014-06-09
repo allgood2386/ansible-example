@@ -2,21 +2,29 @@
   - hosts: all
     tasks:
 
-  - name: Get software for apt repository management.
-    apt: name={{ item }} state=installed
-    with_items:
-    - python-apt
-    - python-pycurl
+    - name: Get software for apt repository management.
+      apt: name={{ item }} state=installed
+      with_items:
+      - python-apt
+      - python-pycurl
 
-  - name: Make sure we have upstream php.
-    apt_repository: repo='ppa:ondrej/php5'
+    - name: Make sure we have upstream php.
+      apt_repository: repo='ppa:ondrej/php5'
 
-  - name: Ensure Apache/PHP/MySQL is installed.
-    apt: name={{ item }} state=latest
-    with_items:
-      - apache2
-      - php5
-      - php5-cli
+    - name: Ensure Apache/PHP/MySQL is installed.
+      apt: name={{ item }} state=latest
+      with_items:
+        - apache2
+        - php5
+        - php5-cli
+        - mysql-client-core-5.5
+        - mysql-server-5.5
 
-  - name: Ensure Apache is running.
-    service: name=apache2 state=started
+    - name: Ensure Apache is running.
+      service: name=apache2 state=started
+
+    - name: Ensure Mysql is running
+      service: name=mysql state=started
+
+    - name: Set drupaldb
+      mysql_db: name=drupaldb state=present collation=utf8_general_ci
