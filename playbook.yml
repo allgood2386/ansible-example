@@ -1,59 +1,14 @@
 ---
   - hosts: all
+    pre_tasks:
+    - name: Ensure apt-get is uptodate
+      apt: update_cache=yes
+
     tasks:
 
-    - name: Get software for apt repository management.
-      apt: name={{ item }} state=installed
-      with_items:
-      - python-apt
-      - python-pycurl
+    vars_files:
+    - vars/drupal.yml
 
-    - name: Make sure we have upstream php.
-      apt_repository: repo='ppa:ondrej/php5'
-
-    - name: Ensure Apache/PHP/MySQL is installed.
-      apt: name={{ item }} state=latest
-      with_items:
-        - git
-        - curl
-        - sendmail
-        - apache2
-        - php5
-        - php5-cli
-        - php5-common
-        - php5-gd
-        - php5-dev
-        - php-apc
-        - php-pear
-        - mysql-client-core-5.5
-        - mysql-server-5.5
-
-    - name: Install python Mysql package #required for mysql_db tasks
-      apt: name=python-mysqldb state=present
-
-    - name: Ensure Apache is running.
-      service: name=apache2 state=started
-
-    - name: Ensure Mysql is running
-      service: name=mysql state=started
-
-    - name: Set drupaldb
-      mysql_db: name=drupaldb state=present
-
-    - name: Set Drupal DB User
-      mysql_user: name=drupal password=drupaluser priv=drupaldb.*:"SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES" state=present
-
-    - name: Remove anon mysql user
-      mysql_user: name='' state=absent
-
-    - name: install composer
-      shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin creates=/usr/local/bin/composer
-
-    - name: rename composer.phar to composer
-      shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
-
-    - name: make composer executable
-      shell: chmod a+x /usr/local/bin/composer
-
-    - name: Install drush globally.
-      shell: composer global require drush/drush:dev-master --no-interaction --no-ansi
+    roles:
+    - { role: geerlingguy.php-mysql }
+    - { role: geerlingguy.drupal }

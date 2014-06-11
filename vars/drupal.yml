@@ -1,0 +1,8 @@
+drupal_core_version: "7.28"
+drupal_core_path: "/var/www/drupal-{{ drupal_core_version }}-dev"
+drupal_domain: "drupaltest.dev"
+drupal_site_name: "Drupal Example"
+drupal_webserver_daemon: apache2
+drupal_mysql_user: drupal
+drupal_mysql_password: password
+drupal_mysql_database: drupal
