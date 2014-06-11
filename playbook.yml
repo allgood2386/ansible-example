@@ -45,3 +45,15 @@
 
     - name: Remove anon mysql user
       mysql_user: name='' state=absent
+
+    - name: install composer
+      shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin creates=/usr/local/bin/composer
+
+    - name: rename composer.phar to composer
+      shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+
+    - name: make composer executable
+      shell: chmod a+x /usr/local/bin/composer
+
+    - name: Install drush globally.
+      shell: composer global require drush/drush:dev-master --no-interaction --no-ansi
