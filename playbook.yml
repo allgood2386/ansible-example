@@ -10,5 +10,4 @@
     - vars/drupal.yml
 
     roles:
-    - { role: geerlingguy.php-mysql }
-    - { role: geerlingguy.drupal }
+    - ansible-role-drupal

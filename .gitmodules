@@ -1,0 +1,3 @@
+[submodule "roles/ansible-role-drupal"]
+	path = roles/ansible-role-drupal
+	url = git@github.com:geerlingguy/ansible-role-drupal.git
