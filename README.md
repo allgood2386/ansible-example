@@ -15,9 +15,9 @@ just install the role.
 ##Step-by-step (and things to know)
 1. Install Virtualbox https://www.virtualbox.org/wiki/Downloads
 + Install Vagrant http://www.vagrantup.com/
-+ ```brew update && brew install ansible```
-+ ```vagrant box add p2 http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box```
-+ ```git clone --recursive git@bitbucket.org:taoticreative/ansible-template.git {projectpath}```
++ ```$brew update && brew install ansible```
++ ```$vagrant box add p2 http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box```
++ ```$git clone --recursive git@bitbucket.org:taoticreative/ansible-template.git {projectpath}```
 + Copy ./Vagrantfile.example -> ./Vagrantfile
 + Edit ip settings in ./Vagrantfile
 + Create a vars/drupal.yml file, edit accordingly for your repos.
